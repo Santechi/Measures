@@ -1,0 +1,58 @@
+﻿<Window x:Class="Test.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test.View"
+        mc:Ignorable="d"
+        Title="Measure Planer" WindowStartupLocation="CenterScreen" 
+        Height="500" Width="1250" MinHeight="500" MinWidth="1250">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="clientsDataGrid" Grid.Row="0" Margin="5"
+                  AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single"
+                  ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Номер клиента" Binding="{Binding Path=Id}" MinWidth="100"/>
+                <DataGridTextColumn IsReadOnly="True" Header="ФИО клиента" Binding="{Binding Path=Name}" Width="*" />
+                <DataGridTextColumn IsReadOnly="True" Header="Город" MinWidth="120" Binding="{Binding Path=City}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Адрес" Width="*" Binding="{Binding Path=Address}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Номер телефона" MinWidth="90" Binding="{Binding Path=PhoneNumber}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Дата замера" MinWidth="90" Binding="{Binding Path=MeasureDate}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Время замера" MinWidth="90" Binding="{Binding Path=MeasureTime}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="0" Grid.Column="5">
+            <Calendar x:Name="calendar" SelectedDate="{Binding CalendarDate}" />
+
+            <ComboBox ItemsSource="{Binding Intervals}" SelectedItem="{Binding SelectedInterval}" IsEnabled="{Binding IntervalsEnabled}" Grid.Row="0" Grid.Column="2" Height="20" Margin="10,0,10,3" VerticalAlignment="Top" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=IntervalValue}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Button x:Name="addMeasure" Content="Назначить дату" Margin="10,0,10,3" Command="{Binding NewMeasureCommand}"/>
+            <Button x:Name="removeMeasure" Content="Удалить дату" Margin="10,0,10,3" Command="{Binding RemoveMeasureCommand}"/>
+
+            <StackPanel Margin="0,5">
+                <TextBlock Text="На дату:" TextAlignment="Center"/>
+                <TextBlock Text="{Binding DateString}" TextAlignment="Center"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="доступно замеров: " TextAlignment="Center"/>
+                    <TextBlock Text="{Binding MeasureRemaining}" TextAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>

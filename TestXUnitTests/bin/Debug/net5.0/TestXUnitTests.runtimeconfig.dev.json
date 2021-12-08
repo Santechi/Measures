@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\pheno\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\pheno\\.nuget\\packages"
+    ]
+  }
+}
